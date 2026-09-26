@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Football Club</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07111d;color:#fff;font-family:Arial,sans-serif}
+header{height:70px;background:#0d1c2b;border-bottom:2px solid #d7a83b;display:flex;align-items:center;padding:0 25px}
+.logo{font-size:25px;font-weight:900;color:#ffd34d}.coins{margin-left:auto;color:#ffd34d}
+nav{display:flex;gap:8px;background:#101f30;padding:10px;overflow:auto}
+nav button,.btn{background:#162c42;color:#fff;border:1px solid #31516c;padding:12px 18px;border-radius:5px;font-weight:bold}
+nav button:hover,.btn:hover{background:#214664}
+main{padding:25px;max-width:1250px;margin:auto}.page{display:none}.page.active{display:block}
+h1{color:#ffd34d}.panel{background:linear-gradient(145deg,#102235,#091522);border:1px solid #28445c;border-radius:10px;padding:20px;margin-bottom:18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.card{height:260px;border-radius:12px;padding:15px;background:linear-gradient(145deg,#1c4260,#071522);border:2px solid #5f8ba8;position:relative;text-align:center}
+.card.gold{border-color:#e8bd45;background:linear-gradient(145deg,#624c1b,#17120a)}
+.ov{font-size:32px;font-weight:900}.pos{color:#9fc4df}.face{font-size:65px;margin:15px}.name{font-size:18px;font-weight:bold}.club{font-size:13px;color:#a9b7c4}
+.squad{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
+.player{background:#13283b;border:1px solid #3d6079;border-radius:8px;padding:15px;text-align:center}
+.big{font-size:50px}.center{text-align:center}
+.pack{height:330px;display:flex;align-items:center;justify-content:center}
+.packbox{width:210px;height:285px;border:3px solid #d7a83b;border-radius:18px;background:linear-gradient(145deg,#243f60,#090e18);display:flex;align-items:center;justify-content:center;font-size:35px;font-weight:900;box-shadow:0 0 35px #d7a83b55}
+.success{font-size:30px;color:#65ff9a;font-weight:bold}
+input{background:#0a1724;border:1px solid #39566e;color:#fff;padding:12px;border-radius:5px}
+@media(max-width:700px){.squad{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">⚽ FOOTBALL CLUB</div>
+<div class="coins">🪙 <span id="coins">1000000</span></div>
+</header>
+
+<nav>
+<button onclick="show('home')">Trang chủ</button>
+<button onclick="show('squad')">Đội hình</button>
+<button onclick="show('market')">TTCN</button>
+<button onclick="show('upgrade')">Đập thẻ</button>
+<button onclick="show('pack')">Hầm mở thẻ</button>
+</nav>
+
+<main>
+
+<section id="home" class="page active">
+<h1>FOOTBALL CLUB</h1>
+<div class="panel center">
+<h2>Chào mừng đến với Football Club</h2>
+<p>Thu thập cầu thủ • Mở thẻ • Nâng cấp • Xây đội hình</p>
+<button class="btn" onclick="show('pack')">🎁 Mở thẻ ngay</button>
+</div>
+<div class="panel">
+<h2>Sự kiện</h2>
+<p>🔥 PACK HOT đang mở!</p>
+<p>⚡ Nâng cấp cầu thủ để tăng chỉ số.</p>
+</div>
+</section>
+
+<section id="squad" class="page">
+<h1>ĐỘI HÌNH</h1>
+<div class="panel">
+<div class="squad">
+<div class="player"><div class="big">🧤</div><b>Courtois</b><br>GK • 108</div>
+<div class="player"><div class="big">🛡️</div><b>Carvajal</b><br>RB • 106</div>
+<div class="player"><div class="big">🛡️</div><b>Ramos</b><br>CB • 109</div>
+<div class="player"><div class="big">🛡️</div><b>Maldini</b><br>CB • 110</div>
+<div class="player"><div class="big">🛡️</div><b>Marcelo</b><br>LB • 107</div>
+<div class="player"><div class="big">⚡</div><b>Modrić</b><br>CM • 109</div>
+<div class="player"><div class="big">⭐</div><b>Zidane</b><br>CAM • 110</div>
+<div class="player"><div class="big">🔥</div><b>Ronaldo</b><br>ST • 112</div>
+</div>
+</div>
+</section>
+
+<section id="market" class="page">
+<h1>THỊ TRƯỜNG CHUYỂN NHƯỢNG</h1>
+<div class="panel">
+<input id="search" placeholder="Tìm cầu thủ..." oninput="searchPlayer()">
+</div>
+<div class="cards" id="marketCards">
+<div class="card gold"><div class="ov">112</div><div class="pos">ST</div><div class="face">🇵🇹</div><div class="name">Cristiano Ronaldo</div><div class="club">LEGEND</div><button class="btn" onclick="buy(500000)">Mua 500K</button></div>
+<div class="card"><div class="ov">110</div><div class="pos">CAM</div><div class="face">🇫🇷</div><div class="name">Zidane</div><div class="club">ICON</div><button class="btn" onclick="buy(400000)">Mua 400K</button></div>
+</div>
+</section>
+
+<section id="upgrade" class="page">
+<h1>ĐẬP THẺ CẦU THỦ</h1>
+<div class="panel center">
+<div class="card gold" style="display:inline-block">
+<div class="ov" id="ov">108</div><div class="pos">ST</div>
+<div class="face">🇵🇹</div><div class="name">Ronaldo</div>
+</div>
+<h2>Cường hoá cầu thủ</h2>
+<button class="btn" onclick="upgrade()">⚡ ĐẬP THẺ</button>
+<p id="upgradeText">Tỉ lệ thành công: 50%</p>
+</div>
+</section>
+
+<section id="pack" class="page">
+<h1>HẦM MỞ THẺ</h1>
+<div class="panel center">
+<div class="pack"><div class="packbox" id="packbox">PACK</div></div>
+<button class="btn" onclick="openPack()">🎁 MỞ GÓI THẺ</button>
+<h2 id="result"></h2>
+</div>
+</section>
+
+</main>
+
+<script>
+function show(id){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+let coins=1000000;
+function buy(price){
+ if(coins>=price){coins-=price;document.getElementById('coins').textContent=coins;alert('Mua cầu thủ thành công!');}
+ else alert('Không đủ BP!');
+}
+function upgrade(){
+ let ok=Math.random()<.5;
+ let ov=document.getElementById('ov');
+ if(ok){ov.textContent=Number(ov.textContent)+1;document.getElementById('upgradeText').innerHTML='<span class="success">NÂNG CẤP THÀNH CÔNG! 🔥</span>';}
+ else document.getElementById('upgradeText').textContent='Nâng cấp thất bại 😭';
+}
+function openPack(){
+ let box=document.getElementById('packbox');
+ let result=document.getElementById('result');
+ box.textContent='✨';
+ setTimeout(()=>{
+  let players=['Ronaldo 🇵🇹','Messi 🇦🇷','Zidane 🇫🇷','Ramos 🇪🇸','Modrić 🇭🇷'];
+  let p=players[Math.floor(Math.random()*players.length)];
+  result.textContent='🎉 Bạn nhận được: '+p;
+  box.textContent='CARD';
+ },700);
+}
+function searchPlayer(){
+ let q=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('#marketCards .card').forEach(c=>{
+  c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+ });
+}
+</script>
+
+</body>
+</html>
