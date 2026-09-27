@@ -2,146 +2,620 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Football Club</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#07111d;color:#fff;font-family:Arial,sans-serif}
-header{height:70px;background:#0d1c2b;border-bottom:2px solid #d7a83b;display:flex;align-items:center;padding:0 25px}
-.logo{font-size:25px;font-weight:900;color:#ffd34d}.coins{margin-left:auto;color:#ffd34d}
-nav{display:flex;gap:8px;background:#101f30;padding:10px;overflow:auto}
-nav button,.btn{background:#162c42;color:#fff;border:1px solid #31516c;padding:12px 18px;border-radius:5px;font-weight:bold}
-nav button:hover,.btn:hover{background:#214664}
-main{padding:25px;max-width:1250px;margin:auto}.page{display:none}.page.active{display:block}
-h1{color:#ffd34d}.panel{background:linear-gradient(145deg,#102235,#091522);border:1px solid #28445c;border-radius:10px;padding:20px;margin-bottom:18px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
-.card{height:260px;border-radius:12px;padding:15px;background:linear-gradient(145deg,#1c4260,#071522);border:2px solid #5f8ba8;position:relative;text-align:center}
-.card.gold{border-color:#e8bd45;background:linear-gradient(145deg,#624c1b,#17120a)}
-.ov{font-size:32px;font-weight:900}.pos{color:#9fc4df}.face{font-size:65px;margin:15px}.name{font-size:18px;font-weight:bold}.club{font-size:13px;color:#a9b7c4}
-.squad{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
-.player{background:#13283b;border:1px solid #3d6079;border-radius:8px;padding:15px;text-align:center}
-.big{font-size:50px}.center{text-align:center}
-.pack{height:330px;display:flex;align-items:center;justify-content:center}
-.packbox{width:210px;height:285px;border:3px solid #d7a83b;border-radius:18px;background:linear-gradient(145deg,#243f60,#090e18);display:flex;align-items:center;justify-content:center;font-size:35px;font-weight:900;box-shadow:0 0 35px #d7a83b55}
-.success{font-size:30px;color:#65ff9a;font-weight:bold}
-input{background:#0a1724;border:1px solid #39566e;color:#fff;padding:12px;border-radius:5px}
-@media(max-width:700px){.squad{grid-template-columns:repeat(2,1fr)}}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#050b12;
+ color:#fff;
+ font-family:Arial,Helvetica,sans-serif;
+ overflow-x:hidden
+}
+button{cursor:pointer}
+
+.top{
+ height:64px;
+ background:linear-gradient(90deg,#07111b,#10283a,#07111b);
+ border-bottom:1px solid #c79a32;
+ display:flex;
+ align-items:center;
+ padding:0 28px;
+ gap:35px
+}
+.logo{
+ font-size:25px;
+ font-weight:900;
+ color:#e7bd52;
+ letter-spacing:1px
+}
+.money{
+ margin-left:auto;
+ color:#f4cf68;
+ font-weight:bold
+}
+
+.menu{
+ height:52px;
+ background:#0b1722;
+ display:flex;
+ align-items:center;
+ padding-left:25px;
+ border-bottom:1px solid #233b4d;
+ gap:5px
+}
+.menu button{
+ height:52px;
+ padding:0 22px;
+ background:transparent;
+ color:#aebdca;
+ border:0;
+ font-weight:bold
+}
+.menu button:hover,
+.menu button.active{
+ color:#fff;
+ background:linear-gradient(#19344b,#102232);
+ border-bottom:3px solid #d7aa42
+}
+
+.page{
+ display:none;
+ min-height:calc(100vh - 116px);
+ padding:25px
+}
+.page.active{display:block}
+
+.hero{
+ min-height:420px;
+ border:1px solid #29485f;
+ border-radius:4px;
+ background:
+ radial-gradient(circle at 75% 35%,#294e6b55,transparent 30%),
+ linear-gradient(135deg,#102c42,#071019 60%,#132a3b);
+ position:relative;
+ overflow:hidden;
+ padding:55px
+}
+.hero:after{
+ content:"FOOTBALL";
+ position:absolute;
+ right:-30px;
+ bottom:-35px;
+ font-size:120px;
+ font-weight:900;
+ color:#ffffff05;
+ transform:skew(-10deg)
+}
+.hero h1{
+ font-size:48px;
+ margin:0 0 12px;
+ color:#f1ca5c
+}
+.hero p{
+ color:#b9c8d3;
+ font-size:17px
+}
+
+.btn{
+ background:linear-gradient(#d8b34d,#8e681d);
+ border:1px solid #f1d77b;
+ color:#fff;
+ padding:12px 25px;
+ font-weight:bold;
+ border-radius:3px;
+ box-shadow:0 3px 12px #0008
+}
+.btn:hover{filter:brightness(1.15)}
+
+.section{
+ margin-top:20px;
+ background:#0b1722;
+ border:1px solid #20394b;
+ padding:20px;
+ border-radius:4px
+}
+.title{
+ color:#e8c35c;
+ font-size:21px;
+ font-weight:bold;
+ border-bottom:1px solid #294355;
+ padding-bottom:12px;
+ margin-bottom:18px
+}
+
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+ gap:18px
+}
+.card{
+ height:270px;
+ border:2px solid #8c702c;
+ border-radius:8px;
+ background:linear-gradient(150deg,#182f43,#08121c 65%);
+ padding:12px;
+ text-align:center;
+ position:relative;
+ overflow:hidden
+}
+.card:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(120deg,transparent,#fff2,transparent);
+ transform:translateX(-120%)
+}
+.card:hover:before{
+ transform:translateX(120%);
+ transition:.6s
+}
+.ov{
+ font-size:31px;
+ font-weight:900;
+ color:#f2d16c
+}
+.pos{
+ color:#8ca5b7;
+ font-size:13px
+}
+.face{
+ font-size:66px;
+ margin:15px
+}
+.name{
+ font-size:17px;
+ font-weight:bold
+}
+.season{
+ color:#d6ae4b;
+ font-size:12px;
+ margin-top:5px
+}
+
+.squad{
+ min-height:600px;
+ border:1px solid #29485a;
+ border-radius:5px;
+ background:
+ radial-gradient(circle,#19445a55 1px,transparent 2px),
+ linear-gradient(90deg,#123f2b,#17603a,#123f2b);
+ background-size:25px 25px,100% 100%;
+ position:relative;
+ padding:35px
+}
+.line{
+ display:flex;
+ justify-content:center;
+ gap:55px;
+ margin:30px 0
+}
+.player{
+ width:130px;
+ padding:10px;
+ background:#08131eeb;
+ border:1px solid #d0a63e;
+ border-radius:5px;
+ text-align:center
+}
+.player .mini{
+ font-size:35px
+}
+.player b{
+ font-size:14px
+}
+.player span{
+ display:block;
+ color:#d8b95d;
+ font-size:12px
+}
+
+.market{
+ display:grid;
+ grid-template-columns:1fr 280px;
+ gap:20px
+}
+.search{
+ width:100%;
+ background:#07111a;
+ border:1px solid #355269;
+ color:#fff;
+ padding:13px;
+ margin-bottom:18px
+}
+.marketbox{
+ background:#0b1722;
+ border:1px solid #263e50;
+ padding:20px
+}
+
+.upgrade{
+ max-width:600px;
+ margin:auto;
+ text-align:center
+}
+.upcard{
+ margin:25px auto;
+ width:210px;
+ height:310px;
+ padding:20px;
+ border:3px solid #d7aa3f;
+ border-radius:12px;
+ background:linear-gradient(145deg,#254862,#09131c);
+ box-shadow:0 0 30px #d7aa3f33
+}
+.upcard .ov{font-size:45px}
+.upcard .face{font-size:80px}
+
+.packroom{
+ text-align:center;
+ padding-top:35px
+}
+.pack{
+ width:250px;
+ height:350px;
+ margin:30px auto;
+ border:3px solid #d9ad42;
+ border-radius:18px;
+ background:
+ radial-gradient(circle at 50% 30%,#4c7190,#14283a 45%,#050b11);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:40px;
+ font-weight:900;
+ box-shadow:0 0 45px #d9ad4255;
+ transition:.4s
+}
+.pack.open{
+ transform:scale(1.08) rotateY(180deg);
+ box-shadow:0 0 80px #ffe17a
+}
+
+.result{
+ font-size:24px;
+ color:#f2cf68;
+ font-weight:bold;
+ min-height:35px
+}
+
+.notice{
+ padding:15px;
+ background:#101f2d;
+ border-left:3px solid #d7aa42;
+ color:#b7c5cf
+}
+
+@media(max-width:800px){
+ .menu{overflow-x:auto}
+ .hero{padding:30px}
+ .hero h1{font-size:35px}
+ .market{grid-template-columns:1fr}
+ .line{gap:8px}
+ .player{width:100px}
+}
 </style>
 </head>
+
 <body>
 
-<header>
+<header class="top">
 <div class="logo">⚽ FOOTBALL CLUB</div>
-<div class="coins">🪙 <span id="coins">1000000</span></div>
+<div>LV. 1</div>
+<div class="money">💰 <span id="bp">1,000,000</span> BP</div>
 </header>
 
-<nav>
-<button onclick="show('home')">Trang chủ</button>
-<button onclick="show('squad')">Đội hình</button>
-<button onclick="show('market')">TTCN</button>
-<button onclick="show('upgrade')">Đập thẻ</button>
-<button onclick="show('pack')">Hầm mở thẻ</button>
+<nav class="menu">
+<button class="active" onclick="page('home',this)">TRANG CHỦ</button>
+<button onclick="page('squad',this)">ĐỘI HÌNH</button>
+<button onclick="page('market',this)">TTCN</button>
+<button onclick="page('upgrade',this)">ĐẬP THẺ</button>
+<button onclick="page('pack',this)">HẦM MỞ THẺ</button>
 </nav>
 
-<main>
-
+<!-- TRANG CHỦ -->
 <section id="home" class="page active">
+
+<div class="hero">
 <h1>FOOTBALL CLUB</h1>
-<div class="panel center">
-<h2>Chào mừng đến với Football Club</h2>
-<p>Thu thập cầu thủ • Mở thẻ • Nâng cấp • Xây đội hình</p>
-<button class="btn" onclick="show('pack')">🎁 Mở thẻ ngay</button>
+<p>Xây dựng đội bóng trong mơ của bạn.</p>
+<p>Thu thập cầu thủ • Nâng cấp thẻ • Mở pack • Giao dịch TTCN</p>
+<br>
+<button class="btn" onclick="page('pack')">🎁 MỞ THẺ</button>
 </div>
-<div class="panel">
-<h2>Sự kiện</h2>
-<p>🔥 PACK HOT đang mở!</p>
-<p>⚡ Nâng cấp cầu thủ để tăng chỉ số.</p>
+
+<div class="section">
+<div class="title">SỰ KIỆN NỔI BẬT</div>
+<div class="notice">
+🔥 PACK LEGENDS đang mở — cơ hội nhận những cầu thủ huyền thoại!
 </div>
+</div>
+
 </section>
 
+
+<!-- ĐỘI HÌNH -->
 <section id="squad" class="page">
-<h1>ĐỘI HÌNH</h1>
-<div class="panel">
+
+<h2 class="title">ĐỘI HÌNH 4-3-3</h2>
+
 <div class="squad">
-<div class="player"><div class="big">🧤</div><b>Courtois</b><br>GK • 108</div>
-<div class="player"><div class="big">🛡️</div><b>Carvajal</b><br>RB • 106</div>
-<div class="player"><div class="big">🛡️</div><b>Ramos</b><br>CB • 109</div>
-<div class="player"><div class="big">🛡️</div><b>Maldini</b><br>CB • 110</div>
-<div class="player"><div class="big">🛡️</div><b>Marcelo</b><br>LB • 107</div>
-<div class="player"><div class="big">⚡</div><b>Modrić</b><br>CM • 109</div>
-<div class="player"><div class="big">⭐</div><b>Zidane</b><br>CAM • 110</div>
-<div class="player"><div class="big">🔥</div><b>Ronaldo</b><br>ST • 112</div>
+
+<div class="line">
+<div class="player">
+<div class="mini">🇵🇹</div>
+<b>Ronaldo</b>
+<span>ST • 112</span>
 </div>
+</div>
+
+<div class="line">
+<div class="player">
+<div class="mini">🇧🇷</div>
+<b>Vinícius</b>
+<span>LW • 110</span>
+</div>
+
+<div class="player">
+<div class="mini">🇦🇷</div>
+<b>Messi</b>
+<span>RW • 111</span>
+</div>
+</div>
+
+<div class="line">
+<div class="player"><div class="mini">🇫🇷</div><b>Zidane</b><span>CAM • 110</span></div>
+<div class="player"><div class="mini">🇭🇷</div><b>Modrić</b><span>CM • 109</span></div>
+<div class="player"><div class="mini">🇩🇪</div><b>Matthäus</b><span>CM • 110</span></div>
+</div>
+
+<div class="line">
+<div class="player"><div class="mini">🇧🇷</div><b>Marcelo</b><span>LB • 107</span></div>
+<div class="player"><div class="mini">🇪🇸</div><b>Ramos</b><span>CB • 109</span></div>
+<div class="player"><div class="mini">🇮🇹</div><b>Maldini</b><span>CB • 110</span></div>
+<div class="player"><div class="mini">🇧🇷</div><b>Cafu</b><span>RB • 109</span></div>
+</div>
+
+<div class="line">
+<div class="player">
+<div class="mini">🇧🇪</div>
+<b>Courtois</b>
+<span>GK • 108</span>
+</div>
+</div>
+
 </div>
 </section>
 
+
+<!-- TTCN -->
 <section id="market" class="page">
-<h1>THỊ TRƯỜNG CHUYỂN NHƯỢNG</h1>
-<div class="panel">
-<input id="search" placeholder="Tìm cầu thủ..." oninput="searchPlayer()">
+
+<h2 class="title">THỊ TRƯỜNG CHUYỂN NHƯỢNG</h2>
+
+<div class="market">
+
+<div class="marketbox">
+
+<input class="search" id="search"
+placeholder="🔎 Tìm cầu thủ..."
+oninput="searchCards()">
+
+<div class="cards" id="cards">
+
+<div class="card">
+<div class="ov">112</div>
+<div class="pos">ST</div>
+<div class="face">🇵🇹</div>
+<div class="name">Cristiano Ronaldo</div>
+<div class="season">LEGEND</div>
+<br>
+<button class="btn" onclick="buy(500000)">500K BP</button>
 </div>
-<div class="cards" id="marketCards">
-<div class="card gold"><div class="ov">112</div><div class="pos">ST</div><div class="face">🇵🇹</div><div class="name">Cristiano Ronaldo</div><div class="club">LEGEND</div><button class="btn" onclick="buy(500000)">Mua 500K</button></div>
-<div class="card"><div class="ov">110</div><div class="pos">CAM</div><div class="face">🇫🇷</div><div class="name">Zidane</div><div class="club">ICON</div><button class="btn" onclick="buy(400000)">Mua 400K</button></div>
+
+<div class="card">
+<div class="ov">111</div>
+<div class="pos">RW</div>
+<div class="face">🇦🇷</div>
+<div class="name">Lionel Messi</div>
+<div class="season">ICON</div>
+<br>
+<button class="btn" onclick="buy(450000)">450K BP</button>
+</div>
+
+<div class="card">
+<div class="ov">110</div>
+<div class="pos">CAM</div>
+<div class="face">🇫🇷</div>
+<div class="name">Zidane</div>
+<div class="season">ICON</div>
+<br>
+<button class="btn" onclick="buy(400000)">400K BP</button>
+</div>
+
+</div>
+</div>
+
+<div class="marketbox">
+<div class="title">THÔNG TIN</div>
+<p>Người chơi đang bán:</p>
+<h2>1,284,520</h2>
+<p style="color:#91a5b5">Cầu thủ trên TTCN</p>
+</div>
+
 </div>
 </section>
 
+
+<!-- ĐẬP THẺ -->
 <section id="upgrade" class="page">
-<h1>ĐẬP THẺ CẦU THỦ</h1>
-<div class="panel center">
-<div class="card gold" style="display:inline-block">
-<div class="ov" id="ov">108</div><div class="pos">ST</div>
-<div class="face">🇵🇹</div><div class="name">Ronaldo</div>
+
+<div class="upgrade">
+
+<h2 class="title">CƯỜNG HÓA CẦU THỦ</h2>
+
+<div class="upcard">
+<div class="ov" id="level">108</div>
+<div class="pos">ST</div>
+<div class="face">🇵🇹</div>
+<h2>RONALDO</h2>
+<p>LEGEND</p>
 </div>
-<h2>Cường hoá cầu thủ</h2>
-<button class="btn" onclick="upgrade()">⚡ ĐẬP THẺ</button>
-<p id="upgradeText">Tỉ lệ thành công: 50%</p>
+
+<p>Tỉ lệ thành công: <b id="rate">50%</b></p>
+
+<button class="btn" onclick="upgrade()">
+⚡ ĐẬP THẺ
+</button>
+
+<h2 id="upgradeResult"></h2>
+
 </div>
 </section>
 
+
+<!-- MỞ THẺ -->
 <section id="pack" class="page">
-<h1>HẦM MỞ THẺ</h1>
-<div class="panel center">
-<div class="pack"><div class="packbox" id="packbox">PACK</div></div>
-<button class="btn" onclick="openPack()">🎁 MỞ GÓI THẺ</button>
-<h2 id="result"></h2>
+
+<div class="packroom">
+
+<h2 class="title">HẦM MỞ THẺ</h2>
+
+<div class="pack" id="pack">
+PACK
 </div>
+
+<button class="btn" onclick="openPack()">
+🎁 MỞ GÓI THẺ
+</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
 </section>
 
-</main>
 
 <script>
-function show(id){
- document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
- document.getElementById(id).classList.add('active');
+
+let bp=1000000;
+
+function page(id,button){
+
+ document.querySelectorAll('.page')
+ .forEach(x=>x.classList.remove('active'));
+
+ document.getElementById(id)
+ .classList.add('active');
+
+ document.querySelectorAll('.menu button')
+ .forEach(x=>x.classList.remove('active'));
+
+ if(button) button.classList.add('active');
 }
-let coins=1000000;
+
+
 function buy(price){
- if(coins>=price){coins-=price;document.getElementById('coins').textContent=coins;alert('Mua cầu thủ thành công!');}
- else alert('Không đủ BP!');
+
+ if(bp<price){
+  alert("Không đủ BP!");
+  return;
+ }
+
+ bp-=price;
+ document.getElementById("bp").textContent=
+ bp.toLocaleString();
+
+ alert("Mua cầu thủ thành công!");
 }
-function upgrade(){
- let ok=Math.random()<.5;
- let ov=document.getElementById('ov');
- if(ok){ov.textContent=Number(ov.textContent)+1;document.getElementById('upgradeText').innerHTML='<span class="success">NÂNG CẤP THÀNH CÔNG! 🔥</span>';}
- else document.getElementById('upgradeText').textContent='Nâng cấp thất bại 😭';
-}
-function openPack(){
- let box=document.getElementById('packbox');
- let result=document.getElementById('result');
- box.textContent='✨';
- setTimeout(()=>{
-  let players=['Ronaldo 🇵🇹','Messi 🇦🇷','Zidane 🇫🇷','Ramos 🇪🇸','Modrić 🇭🇷'];
-  let p=players[Math.floor(Math.random()*players.length)];
-  result.textContent='🎉 Bạn nhận được: '+p;
-  box.textContent='CARD';
- },700);
-}
-function searchPlayer(){
- let q=document.getElementById('search').value.toLowerCase();
- document.querySelectorAll('#marketCards .card').forEach(c=>{
-  c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+
+
+function searchCards(){
+
+ let q=document.getElementById("search")
+ .value.toLowerCase();
+
+ document.querySelectorAll("#cards .card")
+ .forEach(card=>{
+
+  card.style.display=
+  card.innerText.toLowerCase()
+  .includes(q) ? "" : "none";
+
  });
+
 }
+
+
+function upgrade(){
+
+ let success=Math.random()<0.5;
+
+ let level=document.getElementById("level");
+ let result=document.getElementById("upgradeResult");
+
+ if(success){
+
+  level.textContent=
+  Number(level.textContent)+1;
+
+  result.innerHTML=
+  "✨ CƯỜNG HÓA THÀNH CÔNG!";
+
+  result.style.color="#6cff9b";
+
+ }else{
+
+  result.innerHTML=
+  "💥 CƯỜNG HÓA THẤT BẠI!";
+
+  result.style.color="#ff6464";
+
+ }
+
+}
+
+
+function openPack(){
+
+ let pack=document.getElementById("pack");
+ let result=document.getElementById("result");
+
+ result.textContent="Đang mở thẻ...";
+
+ pack.classList.add("open");
+
+ setTimeout(()=>{
+
+  let players=[
+   ["Cristiano Ronaldo","🇵🇹","ST","190"],
+   ["Lionel Messi","🇦🇷","RW","136"],
+   ["Zidane","🇫🇷","CAM","135"],
+   ["Ramos","🇪🇸","CB","129"],
+   ["Maldini","🇮🇹","CB","134"]
+   [ Neymar 🇻🇳 lw 135]
+
+  
+
+  let p=
+  players[Math.floor(Math.random()*players.length)];
+
+  result.innerHTML=
+  "🎉 NHẬN ĐƯỢC<br>"+
+  p[1]+" "+p[0]+" — "+p[2]+" "+p[3];
+
+  pack.textContent="CARD";
+
+ },900);
+
+ setTimeout(()=>{
+  pack.classList.remove("open");
+ },1300);
+
+}
+
 </script>
 
 </body>
